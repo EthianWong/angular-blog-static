@@ -1,0 +1,24 @@
+<div class="wrapper wrapper-content animated fadeInRight wrapper-plate-order" ng-controller="plateOrderCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    更改显示顺序
+                </div>
+                <div class="panel-body">
+                   <button class="btn btn-w-m btn-success" id="saveOrder" ng-click="saveOrder();">保存当前顺序</button>
+
+                    <!--angular ui-sortable 组件 会直接将显示的顺序映射到数据顺序-->
+                    <div ui-sortable="sortableOptions" class="sortable-list connectList " ng-model="plates">
+                        <div ng-repeat="plate in plates " class="col-xs-12 col-sm-6 col-md-3 col-lg-2 plates-panel">
+                            <div>
+                                <h3>{{plate.zh_name}}</h3>
+                                <span>{{plate.en_name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

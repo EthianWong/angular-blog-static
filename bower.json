@@ -1,0 +1,31 @@
+{
+  "name": "INSPINIA",
+  "version": "2.0",
+  "authors": [
+    "Damian Dudziak - WebAppLayers"
+  ],
+  "description": "INSPINIA - Responsive Admin Theme",
+  "main": "app/index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "appPath": "app",
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "angular": "1.3.7",
+    "angular-ui-router": "~0.2.13",
+    "bootstrap": "~3.3.4",
+    "jquery-ui": "~1.11.1",
+    "angular-bootstrap": "~0.12.0",
+    "metisMenu": "~1.1.3",
+    "fontawesome": "~4.3.0",
+    "slimScroll": "https://github.com/rochal/jQuery-slimScroll.git#~1.3.3",
+    "PACE": "https://github.com/HubSpot/pace.git#~1.0.2",
+    "angular-resource": "~1.4.0",
+    "underscore": "~1.8.3",
+    "iCheck": "~1.0.2"
+  }
+}

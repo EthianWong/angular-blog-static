@@ -1,0 +1,54 @@
+<div class="wrapper wrapper-content animated fadeInRight wrapper-article-create" ng-controller="articleCreateCtrls">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    添加文章
+                </div>
+                <div class="panel-body" style="padding-bottom: 0;">
+                    <form class="form-horizontal">
+                        <div class="first-row">
+                            <div class="col-sm-9"><input placeholder="标题" class="form-control" type="text"></div>
+                            <div class="col-sm-3">
+                                <select class="form-control">
+                                    <option value="">全部</option>
+                                    <option value="1">显示</option>
+                                    <option value="0">隐藏</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <textarea redactor id="content" name="content"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button id="btnSubmit" type="button" class="btn btn-w-m btn-primary">
+                                    确认添加
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    添加封面
+                </div>
+                <div class="panel-body">
+                    <img class="imgPreview" src="{{resultImage}}" ng-show="previewIsDone">
+                    <button image-preview type="button" class="btn btn-block btn-success"
+                            data-options="previewOptions"
+                            data-result="resultImage"
+                            data-sm-result="resultImage_sm"
+                            data-done="previewDone();">
+                        <i class="fa fa-inbox"></i>&nbsp;上传
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

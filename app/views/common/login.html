@@ -1,0 +1,35 @@
+<div class="gray-bg page-login" ng-controller="loginCtrl">
+    <div class="middle-box text-center loginscreen  animated fadeInDown" id="middle-box">
+        <div>
+            <div>
+                <h6 class="logo-name" >Wind</h6>
+            </div>
+            <h3>Welcome to Site Manager</h3>
+            <p>Login in. To see it in action.</p>
+            <form name="admin_login_form" novalidate>
+                <div class="form-group">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Username"
+                           data-ng-minlength="5"
+                           required
+                           data-ng-model="admin.name">
+                </div>
+                <div class="form-group">
+                    <input type="password"
+                           class="form-control"
+                           placeholder="Password"
+                           data-ng-model="admin.password"
+                           data-ng-minlength="6"
+                           required>
+                </div>
+                <div id="a1"></div>
+                <input type="submit"
+                       class="btn btn-primary block full-width"
+                       ng-click="login();"
+                       value="Login"
+                       data-ng-hide="admin_login_form.$invalid" >
+            </form>
+        </div>
+    </div>
+</div>

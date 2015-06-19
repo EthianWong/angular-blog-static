@@ -1,0 +1,35 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element" dropdown>
+                    <a class="dropdown-toggle" dropdown-toggle href>
+                        <span class="clear">
+                            <h2 class="logo-text">Welcome</h2>
+                        </span>
+                    </a>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+
+            <li ng-class="{active: $state.includes('article')}">
+                <a href=""><i class="fa fa-inbox"></i> <span class="nav-label">文章管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" ng-class="{in: $state.includes('article')}">
+                    <li ui-sref-active="active"><a ui-sref="article.list">文章列表</a></li>
+                    <li ui-sref-active="active"><a ui-sref="article.create">添加文章</a></li>
+                </ul>
+            </li>
+
+            <li ng-class="{active: $state.includes('plate')}">
+                <a href=""><i class="fa fa-folder-o"></i> <span class="nav-label">栏目管理</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" ng-class="{in: $state.includes('plate')}">
+                    <li ui-sref-active="active"><a ui-sref="plate.list">栏目列表</a></li>
+                    <li ui-sref-active="active"><a ui-sref="plate.order">变更顺序</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>

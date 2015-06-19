@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="changeMgr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Page title set in pageTitle directive -->
+    <title page-title></title>
+
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css --
+    <!-- Font awesome -->
+    <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Main Inspinia CSS files -->
+    <link rel="stylesheet" href="styles/animate.css">
+    <!-- endbower -->
+    <!-- endbuild -->
+
+
+    <!-- build:css({.tmp,app}) styles/style.css -->
+    <link href="styles/style.css" rel="stylesheet">
+    <!-- endbuild -->
+
+    <link href="plugins/angular-notify/angular-notify.min.css" rel="stylesheet">
+
+    <link href="styles/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="plugins/redactor/redactor.css" rel="stylesheet">
+
+</head>
+
+<!-- ControllerAs syntax -->
+<!-- Main controller with serveral data used in Inspinia theme on diferent view -->
+<body ng-controller="MainCtrl" class="skin-1 fixed-sidebar">
+
+<!-- Main view  -->
+<div ui-view></div>
+
+
+<!-- build:js(.) scripts/vendor.js -->
+
+<!-- jQuery and Bootstrap -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+<!-- MetsiMenu -->
+<script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- SlimScroll -->
+<script src="bower_components/slimScroll/jquery.slimscroll.min.js"></script>
+
+<!-- underscore -->
+<script src="bower_components/underscore/underscore-min.js"></script>
+
+<!-- Peace JS -->
+<script src="bower_components/PACE/pace.min.js"></script>
+
+<!-- Angular scripts-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="plugins/angular-notify/angular-notify.min.js"></script>
+
+<!-- Angular Dependiences -->
+<!--                      -->
+<!--                      -->
+<!--                      -->
+
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<!-- Custom and plugin javascript -->
+<script src="bower_components/iCheck/icheck.min.js"></script>
+<script src="plugins/ui-sortable/sortable.js"></script>
+<!-- Anglar App Script -->
+
+<script src="scripts/config.js"></script>
+<script src="scripts/shared/directives.js"></script>
+<script src="scripts/shared/controllers.js"></script>
+<script src="scripts/shared/services.js"></script>
+<script src="scripts/app.js"></script>
+<script src="scripts/admin/AdminCtrls.js"></script>
+<script src="scripts/admin/AdminServices.js"></script>
+<script src="scripts/plate/PlateCtrls.js"></script>
+<script src="scripts/plate/PlateServices.js"></script>
+<script src="scripts/article/ArticleCtrls.js"></script>
+<!-- endbuild -->
+
+
+<script src="plugins/redactor/redactor.js"></script>
+<script src="plugins/redactor/plugins/table/table.js"></script>
+<script src="plugins/redactor/plugins/imagemanager/imagemanager.js"></script>
+
+</body>
+</html>

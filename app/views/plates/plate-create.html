@@ -1,0 +1,41 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">{{title}}</h4>
+    </div>
+    <div class="modal-body">
+        <form name="plateCreateForm" novalidate>
+            <div class="form-group">
+                <input placeholder="中文名称"
+                       ng-model="plate.zh_name"
+                       name="zh_name"
+                       class="form-control"
+                       type="text"
+                       required
+                       ng-minlength="2"
+                       ng-maxlength="10">
+            </div>
+            <div class="form-group">
+                <input placeholder="英文名称"
+                       class="form-control"
+                       type="text"
+                       ng-model="plate.en_name"
+                       name="en_name"
+                       ng-minlength="2"
+                       ng-maxlength="16"
+                       required>
+            </div>
+            <label> <input icheck type="checkbox"
+                           ng-model="plate.isVisible"
+                    >&nbsp;&nbsp;显示</label>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="cancel()">取消</button>
+
+        <button type="button" class="btn btn-success" ng-click="create()" ng-disabled="plateCreateForm.$invalid || disabled_submit">
+            <span ng-show="plateCreateForm.$invalid">请正确填写栏目信息</span>
+            <span ng-hide="plateCreateForm.$invalid">{{btnText}}</span>
+        </button>
+    </div>
+</div>
+

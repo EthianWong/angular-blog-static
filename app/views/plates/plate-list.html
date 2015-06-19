@@ -1,0 +1,66 @@
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="plateListCtrl">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    栏目列表
+                </div>
+                <div class="panel-body">
+                    <form role="form" class="form-inline">
+                        <div class="form-group">
+                            <input placeholder="栏目名称"  class="form-control" type="text" ng-model="condition.name">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="account" ng-model="condition.isVisible">
+                                <option value="">全部</option>
+                                <option value="1">显示</option>
+                                <option value="0">隐藏</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-w-m btn-primary" ng-click="reset();">重置条件</button>
+                            <button class="btn btn-success" ng-click="search();"><i class="fa fa-search"></i>&nbsp;搜索</button>
+                            <button class="btn btn-success"
+                                    ng-click="action();">
+                                <i class="fa fa-plus"></i>&nbsp;添加
+                            </button>
+                        </div>
+                    </form>
+                    <div class="table-responsive" style="margin-top: 10px;">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>中文名称</th>
+                                    <th>英文名称</th>
+                                    <th>显示</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="plate in plates">
+                                    <td>{{plate._id}}</td>
+                                    <td>{{plate.zh_name}}</td>
+                                    <td>{{plate.en_name}}</td>
+                                    <td>
+                                        <i class="fa fa-{{plate.isVisible ? 'check text-navy':'times text-danger'}} "></i>
+                                    </td>
+                                    <td>{{plate.create_time  | date:"yyyy/MM/dd HH:mm"}}</td>
+                                    <td><a href="" ng-click="action(plate);"><i class="fa fa-pencil text-muted"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <pagination class="pagination-sm"
+                                ng-change="select(pagination.page);"
+                                ng-model="pagination.page"
+                                total-items="pagination.total_items"
+                                items-per-page="pagination.items_per_page"
+                                max-size="pagination.max_size"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
