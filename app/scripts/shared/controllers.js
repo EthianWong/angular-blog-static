@@ -20,17 +20,17 @@
         $scope.$on('$stateChangeStart',function(event, toState, toParams, fromState){
             toState.previousUrl = fromState.url;
 
-            if(!sessionStorage.USERTOKEN && toState.name != "login"){
+            if(!sessionStorage.AUTHOR && toState.name != "login"){
                 event.preventDefault();
                 $state.go('login');
-            }else if(sessionStorage.USERTOKEN && toState.name == "login"){
-                sessionStorage.removeItem("USERTOKEN");
+            }else if(sessionStorage.AUTHOR && toState.name == "login"){
+                sessionStorage.removeItem("AUTHOR");
                 $state.go('login');
             }
             else{
-                if(sessionStorage.USERTOKEN && toState.name != "login"){
+                if(sessionStorage.AUTHOR && toState.name != "login"){
 
-                    var user = JSON.parse(sessionStorage.getItem('USERTOKEN'));
+                    var user = JSON.parse(sessionStorage.getItem('AUTHOR'));
                     $scope.last_time = angular.copy(user.last_login);
                 }
             }

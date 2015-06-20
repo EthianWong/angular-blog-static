@@ -34,9 +34,11 @@
             var deferred = $q.defer();
 
             adminInfo.login(user_info).$promise.then(function(response){
+
                 admin.set(response.context);
-                sessionStorage.setItem("USERTOKEN",JSON.stringify(response.context));
+                sessionStorage.setItem("AUTHOR",JSON.stringify(response.context));
                 deferred.resolve(response);
+
             },function(){
                 deferred.reject();
             });

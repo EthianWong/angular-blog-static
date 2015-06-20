@@ -22,6 +22,10 @@
     app.config(['$httpProvider', function($httpProvider) {
         $httpProvider.interceptors.push('errorInterceptor');
         $httpProvider.interceptors.push('paramsFilter');
+
+        var author = JSON.parse(sessionStorage.getItem('AUTHOR'));
+
+        $httpProvider.defaults.headers.common.Authorization = author ? author.token : "";
     }]);
 
 })();

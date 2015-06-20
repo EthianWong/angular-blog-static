@@ -18,23 +18,23 @@
             return globalConfig.apiUrl + url;
         };
 
-        this.createResource = function(url,param_defaults,actions){
+        this.createResource = function(url,param_defaults,actions_defaults){
 
             var canceler = $q.defer();
+
             var inner_actions = {
                 'query':  {method:'GET',timeout:canceler.promise},
                 'create':  {method:'POST'},
                 'update' : {method:'PUT'}
             };
 
-            var user = JSON.parse(sessionStorage.getItem('USERTOKEN'));
+            var inner_param_defaults = {};
 
-            var inner_param_defaults = {user_token:function(){return user?user.user_token:null}};
+            var params = _.extend(inner_param_defaults,param_defaults);
 
-            param_defaults = _.extend(inner_param_defaults,param_defaults);
+            var actions = _.extend(inner_actions,actions_defaults);
 
-            actions = $.extend(inner_actions,actions);
-            return $resource(this.getApiUrl(url), param_defaults,actions);
+            return $resource(this.getApiUrl(url), params,actions);
         };
 
     }]);
@@ -58,17 +58,22 @@
     /**
      * error action
      */
-    services.factory('errorInterceptor',['$q','Notify',function($q,Notify){
+    services.factory('errorInterceptor',['$q','Notify','$injector',function($q,Notify,$injector){
         return {
             'responseError': function(response) {
 
-                if( response.status == 422 || response.status == 405 || response.status == 404 || response.status == 400){
+                if( response.status == 422  || response.status == 404 || response.status == 400){
 
                     Notify(response.data.message,'danger');
 
                 }else if(response.status == 500){
 
                     Notify(response.data.message,'danger');
+
+                }else if(response.status == 405){
+
+                    Notify(response.data.message,'danger');
+                    $injector.get("$state").go('login');
 
                 }
                 return $q.reject(response);
