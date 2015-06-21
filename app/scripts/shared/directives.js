@@ -11,18 +11,12 @@
 
 
     /**
-     * bind window event to fix height
+     * use small or default layout
      */
-    directives.directive('body', ["fixHeight",function(fixHeight){
+    directives.directive('body', [function(){
         return {
             restrict: 'E',
             link: function() {
-
-                $(window).bind("load resize scroll", function() {
-                    if(!$("body").hasClass('body-small')) {
-                        fixHeight();
-                    }
-                });
 
                 $(window).bind("load resize", function() {
                     if ($(this).width() < 769) {
@@ -31,7 +25,6 @@
                         $('body').removeClass('body-small')
                     }
                 });
-                fixHeight();
             }
         };
     }]);
@@ -268,6 +261,33 @@
                     imageUpload: '/upload.php',
                     plugins:['table','imagemanager']
                 });
+            }
+        };
+    }]);
+
+    /**
+     * scrollbar
+     */
+    directives.directive('scrollbar', ["$timeout",function($timeout){
+        return {
+            restrict: 'EA',
+            link: function(scope, element) {
+
+                var init = function(){
+
+                    var height = $(window).height() - 60;
+                    $(element).slimScroll({height: height + "px"});
+
+                };
+
+                $(window).resize(function() {
+                    $timeout(function(){
+                        $(element).slimScroll({"destroy":true});
+                        init();
+                    });
+                });
+
+                init();
             }
         };
     }]);
