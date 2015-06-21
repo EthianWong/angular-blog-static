@@ -22,10 +22,12 @@
     "angular-bootstrap": "~0.12.0",
     "metisMenu": "~1.1.3",
     "fontawesome": "~4.3.0",
-    "slimScroll": "https://github.com/rochal/jQuery-slimScroll.git#~1.3.3",
+    "slimScroll": "https://github.com/kujian/jQuery-slimScroll.git",
     "PACE": "https://github.com/HubSpot/pace.git#~1.0.2",
     "angular-resource": "~1.4.0",
     "underscore": "~1.8.3",
-    "iCheck": "~1.0.2"
+    "iCheck": "~1.0.2",
+	"imperavi-redactor-widget":"https://github.com/yiiext/imperavi-redactor-widget.git",
+	"ui-sortable":"https://github.com/angular-ui/ui-sortable.git"
   }
 }
