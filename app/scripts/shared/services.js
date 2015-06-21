@@ -100,32 +100,6 @@
     }]);
 
     /**
-     * 修正高度
-     */
-    services.factory('fixHeight', [function () {
-        return function(){
-
-            var heightWithoutNavbar = $("body > #wrapper").height() - 61;
-
-            $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
-
-            var navbarHeigh = $('nav.navbar-default').height();
-            var wrapperHeigh = $('#page-wrapper').height();
-
-            var obj = document.getElementById("page-wrapper");
-
-
-            if(navbarHeigh > wrapperHeigh){
-                obj.style.minHeight = navbarHeigh + "px"
-            }
-
-            if(navbarHeigh < wrapperHeigh){
-                obj.style.minHeight = $(window).height()  + "px";
-            }
-        }
-    }]);
-
-    /**
      * 公用分页
      */
     services.factory('globalPagination',[

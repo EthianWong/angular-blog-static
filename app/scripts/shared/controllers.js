@@ -9,12 +9,9 @@
 
     var controllers = angular.module('app.controllers',['app.services']);
 
-    controllers.controller('MainCtrl',['$scope',"$rootScope","fixHeight","$state",function($scope,$rootScope,fixHeight,$state){
-
-        //监听修复高度
-        $rootScope.$on('$viewContentLoaded', function(){
-            fixHeight();
-        });
+    controllers.controller('MainCtrl',['$scope',"$rootScope","$state",function($scope,$rootScope,$state){
+		
+        //$rootScope.$on('$viewContentLoaded', function(){});
 
         //监测用户登录
         $scope.$on('$stateChangeStart',function(event, toState, toParams, fromState){
