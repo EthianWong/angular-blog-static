@@ -7,39 +7,8 @@
             <div class="title">Configuration</div>
             <div class="setings-item">
                     <span>
-                        Collapse menu
-                    </span>
-
-                <div class="switch">
-                    <div class="onoffswitch">
-                        <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
-                        <label class="onoffswitch-label" for="collapsemenu">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="setings-item">
-                    <span>
-                        Fixed sidebar
-                    </span>
-
-                <div class="switch">
-                    <div class="onoffswitch">
-                        <input type="checkbox" name="fixedsidebar" class="onoffswitch-checkbox" id="fixedsidebar">
-                        <label class="onoffswitch-label" for="fixedsidebar">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="setings-item">
-                    <span>
                         Top navbar
                     </span>
-
                 <div class="switch">
                     <div class="onoffswitch">
                         <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
@@ -65,22 +34,6 @@
                     </div>
                 </div>
             </div>
-            <div class="setings-item">
-                    <span>
-                        Fixed footer
-                    </span>
-
-                <div class="switch">
-                    <div class="onoffswitch">
-                        <input type="checkbox" name="fixedfooter" class="onoffswitch-checkbox" id="fixedfooter">
-                        <label class="onoffswitch-label" for="fixedfooter">
-                            <span class="onoffswitch-inner"></span>
-                            <span class="onoffswitch-switch"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
             <div class="title">Skins</div>
             <div class="setings-item default-skin">
                     <span class="skin-name ">
@@ -107,12 +60,6 @@
     </div>
 </div>
 <script>
-
-    // Config box
-    <!-- IMPORTANT -->
-    // Angular directive handel this so there is no need to include this to project
-    <!-- IMPORTANT -->
-
     // Enable/disable fixed top navbar
     $('#fixednavbar').click(function () {
         if ($('#fixednavbar').is(':checked')) {
@@ -125,46 +72,6 @@
             $("body").removeClass('fixed-nav');
         }
     });
-
-
-
-
-
-    var fixSideBar = function(){
-        $("body").addClass('fixed-sidebar');
-        $('.sidebar-collapse').slimScroll({
-            height: '100%',
-            railOpacity: 0.9
-        });
-    };
-
-
-
-
-    // Enable/disable fixed sidebar
-    $('#fixedsidebar').click(function () {
-        if ($('#fixedsidebar').is(':checked')) {
-            fixSideBar();
-        } else {
-            $('.sidebar-collapse').slimscroll({destroy: true});
-            $('.sidebar-collapse').attr('style', '');
-            $('.slimScrollBar').remove();
-
-            $("body").removeClass('fixed-sidebar');
-        }
-    });
-
-    // Enable/disable collapse menu
-    $('#collapsemenu').click(function () {
-        if ($('#collapsemenu').is(':checked')) {
-            $("body").addClass('mini-navbar');
-            SmoothlyMenu();
-        } else {
-            $("body").removeClass('mini-navbar');
-            SmoothlyMenu();
-        }
-    });
-
     // Enable/disable boxed layout
     $('#boxedlayout').click(function () {
         if ($('#boxedlayout').is(':checked')) {
@@ -176,17 +83,6 @@
             $('#fixedfooter').prop('checked', false);
         } else {
             $("body").removeClass('boxed-layout');
-        }
-    });
-
-    // Enable/disable fixed footer
-    $('#fixedfooter').click(function () {
-        if ($('#fixedfooter').is(':checked')) {
-            $('#boxedlayout').prop('checked', false);
-            $("body").removeClass('boxed-layout');
-            $(".footer").addClass('fixed');
-        } else {
-            $(".footer").removeClass('fixed');
         }
     });
 
