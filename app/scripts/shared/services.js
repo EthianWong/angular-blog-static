@@ -45,7 +45,6 @@
      * notify
      */
     services.factory("Notify",["notify",function(notify){
-        //include module Notify then use it
         return function (msg,state){
             notify({
                 message:msg,
@@ -82,17 +81,24 @@
     }]);
 
     /**
-     * 防止发送未定义的参数
+     * request处理
      */
-    services.factory('paramsFilter', [function () {
+    services.factory('requestInterceptor', ["globalConfig",function (globalConfig) {
         return {
             request: function (config) {
                 if(config.data){
+
+                    //删除value为空的key
                     _.each(config.data,function(val,name){
                         if($.trim(val).length == 0){
                             delete  config.data[name];
                         }
                     })
+                }
+                // 如果请求地址是api服务器 添加authorization
+                if(config.url.indexOf(globalConfig.apiUrl) != -1){
+                    var author = JSON.parse(sessionStorage.getItem('AUTHOR'));
+                    config.headers.authorization = author ? author.token : "";
                 }
                 return config;
             }
@@ -141,6 +147,91 @@
         }
     }]);
 
+    /**
+     * 保存 XMLHttpRequest 解决pace与upload插件冲突
+     */
+    services.service('Request', [function () {
 
+        //pace.js 会重写 XMLHttpRequest 所以先将原生的 XMLHttpRequest 储存
+
+        this.default_request = window.XMLHttpRequest;
+
+        this.pace_request = "";
+
+
+        //在要进行upload之前,将pace.js 重写过的 XMLHttpRequest 还原
+        this.default = function(){
+
+            this.pace_request =  window.XMLHttpRequest;
+
+            window.XMLHttpRequest = this.default_request;
+        };
+
+        //upload结束后 将XMLHttpRequest 改变为pace.js 的 XMLHttpRequest
+        this.progress = function(){
+
+            window.XMLHttpRequest = this.pace_request;
+
+        };
+
+    }]);
+
+
+    /**
+     * 获取 upyun oss 认证
+     */
+    services.factory('oss', ["globalConfig","ApiServer","$http","$q",function (globalConfig,ApiServer,$http,$q) {
+
+        return {
+
+            token:function(params){
+
+                var url = ApiServer.getApiUrl("upload/signature");
+                var deferred = $q.defer();
+
+                params = {policy:window.Base64.encode(JSON.stringify(params))};
+
+                $http.post(url,params).
+                    success(function(data, status, headers, config) {
+
+                        deferred.resolve(_.extend(data.context,params));
+
+                    }).
+                    error(function(data, status, headers, config) {
+                        deferred.reject(data);
+                    });
+
+                return deferred.promise;
+
+            },
+
+            oss_options:function(options){
+
+                var default_options = {
+                    'expiration': (new Date().getTime()) + 60,
+                    'save-key': '/{year}/{mon}/{day}/upload_{filemd5}{.suffix}',
+                    'allow-file-type': 'jpg,jpeg,gif,png'
+                };
+
+                return _.extend(default_options,options);
+
+            },
+
+            upload_options:function(options){
+
+                var default_options = {
+                    url: globalConfig.ossUploadUrl,
+                    method: 'POST',
+                    fileFormDataName: 'file',
+                    sendFieldsAs: "form"
+                };
+
+                return _.extend(default_options,options);
+
+            }
+
+        };
+
+    }]);
 
 }).call(this);

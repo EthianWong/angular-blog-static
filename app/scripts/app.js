@@ -5,8 +5,8 @@
 (function () {
 
     var app = angular.module('changeMgr', [
-        'ui.router',                    // Routing
-        'ui.bootstrap',                  // Bootstrap
+        'ui.router',
+        'ui.bootstrap',
         'app.config',
         'app.controllers',
         'app.directives',
@@ -21,11 +21,7 @@
 
     app.config(['$httpProvider', function($httpProvider) {
         $httpProvider.interceptors.push('errorInterceptor');
-        $httpProvider.interceptors.push('paramsFilter');
-
-        var author = JSON.parse(sessionStorage.getItem('AUTHOR'));
-
-        $httpProvider.defaults.headers.common.Authorization = author ? author.token : "";
+        $httpProvider.interceptors.push('requestInterceptor');
     }]);
 
 })();

@@ -18,12 +18,15 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <textarea redactor id="content" name="content"></textarea>
+                            <div class="col-sm-12" style="padding: 0">
+                                <textarea redactor id="redactor-content" name="content"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
+                                <button type="button" class="btn btn-w-m btn-primary" ng-click="show_image_manager();">
+                                    文件上传
+                                </button>
                                 <button id="btnSubmit" type="button" class="btn btn-w-m btn-primary">
                                     确认添加
                                 </button>

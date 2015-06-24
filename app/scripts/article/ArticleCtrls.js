@@ -7,7 +7,24 @@
 
     var articleCtrls = angular.module('app.article.controllers',[]);
 
-    articleCtrls.controller('articleCreateCtrls',["$scope","Notify",function($scope,Notify){
+    articleCtrls.controller('articleCreateCtrls',["$scope","Notify","$modal",function($scope,Notify,$modal){
+
+
+
+        $scope.show_image_manager = function(){
+
+            var modalInstance;
+
+            modalInstance = $modal.open({
+                templateUrl: "/views/common/file-upload.html",
+                controller: "imageManagerCtrl"
+            });
+
+            modalInstance.result.then((function(url) {
+                var img = '<img src="'+url+'">';
+                $('#redactor-content').redactor('insert.html', img);
+            }));
+        };
 
         $scope.previewOptions = {
 
