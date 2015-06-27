@@ -1,0 +1,29 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h1 class="modal-title">图片上传</h1>
+    </div>
+    <div class="modal-body clearfix" style="padding: 15px 0">
+        <div class="col-sm-12" ng-if="isUpload">
+            <progressbar value="upload_value" type="primary" class="progress-striped active">
+                <span>{{upload_value}}%</span>
+            </progressbar>
+        </div>
+        <div class="col-sm-8">
+            <button type="button" ngf-select accept="image/*" class="btn btn-block btn-success" ngf-change="fileSelected($files, $event)" data-ng-disabled="isUpload">
+                <span ng-show="isUpload">正在上传</span>
+                <span ng-show="!isUpload"><i class="fa fa-photo"></i>&nbsp;&nbsp;选择图片</span>
+            </button>
+        </div>
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-block btn-danger" data-ng-disabled="!isUpload" ng-click="cancel_upload();">
+                <i class="fa fa-ban"></i>&nbsp;取消上传
+            </button>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="dismiss();" >关闭</button>
+    </div>
+</div>
+
+
+
