@@ -52,13 +52,13 @@
                             </tbody>
                         </table>
                     </div>
-
                     <pagination class="pagination-sm"
                                 ng-change="select(pagination.page);"
                                 ng-model="pagination.page"
                                 total-items="pagination.total_items"
                                 items-per-page="pagination.items_per_page"
-                                max-size="pagination.max_size"></pagination>
+                                max-size="pagination.max_size"
+                                data-ng-hide="pagination.total_pages == 1"></pagination>
                 </div>
             </div>
         </div>
