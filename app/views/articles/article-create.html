@@ -7,27 +7,25 @@
                 </div>
                 <div class="panel-body" style="padding-bottom: 0;">
                     <form class="form-horizontal">
+                        <alert dismiss-on-timeout="1800" close="alerts.close($index);" ng-repeat="alert in alerts"  type="{{alert.type}}">{{alert.msg}}</alert>
                         <div class="first-row">
-                            <div class="col-sm-9"><input placeholder="标题" class="form-control" type="text"></div>
+                            <div class="col-sm-9"><input placeholder="标题" class="form-control" type="text" data-ng-model="article.title"></div>
                             <div class="col-sm-3">
-                                <select class="form-control">
-                                    <option value="">全部</option>
-                                    <option value="1">显示</option>
-                                    <option value="0">隐藏</option>
-                                </select>
+                                <select class="form-control" data-ng-model="article.plate_id" data-ng-options="p._id as p.zh_name for p in plates" >
+                                 </select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12" style="padding: 0">
-                                <textarea redactor id="redactor-content" name="content"></textarea>
+                                <textarea redactor id="{{edit.id}}" name="content"></textarea>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <button type="button" class="btn btn-w-m btn-primary" ng-click="show_image_manager();">
-                                    文件上传
-                                </button>
-                                <button id="btnSubmit" type="button" class="btn btn-w-m btn-primary">
+                            <div class="col-sm-12 no-padding">
+                                <a class="btn btn-white btn-bitbucket" ng-click="show_image_manager();">
+                                    <i class="fa fa-image"></i> 插入图片
+                                </a>
+                                <button id="btnSubmit" type="button" class="btn btn-w-m btn-primary" ng-click="submit();" ng-disabled="alerts.length">
                                     确认添加
                                 </button>
                             </div>
@@ -42,13 +40,9 @@
                     添加封面
                 </div>
                 <div class="panel-body">
-                    <img class="imgPreview" src="{{resultImage}}" ng-show="previewIsDone">
-                    <button image-preview type="button" class="btn btn-block btn-success"
-                            data-options="previewOptions"
-                            data-result="resultImage"
-                            data-sm-result="resultImage_sm"
-                            data-done="previewDone();">
-                        <i class="fa fa-inbox"></i>&nbsp;上传
+                    <img class="imgPreview" ng-show="show_cover" ng-src="{{article.cover_url}}">
+                    <button type="button" class="btn btn-block btn-success" ng-click="choose_cover();">
+                        <i class="fa fa-inbox"></i>&nbsp;&nbsp;选择封面
                     </button>
                 </div>
             </div>
