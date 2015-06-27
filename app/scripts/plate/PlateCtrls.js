@@ -115,10 +115,8 @@
 
         $scope.plates= [];
 
-        var condition = {"page":"1","per-page":"10000"};
-
         var _load  = function(){
-            plateInfo.query(condition).$promise.then(function(data){
+            plateInfo.query().$promise.then(function(data){
                 //文章栏目数量较少 所以直接使用js排序
                 $scope.plates = _.sortBy(data.context, 'order_id');
             });
