@@ -33,9 +33,13 @@
 
     }]);
 
-    controllers.controller('imageManagerCtrl',['$scope','$modalInstance','Upload','$timeout','Notify','Request','oss','globalConfig',function($scope,$modalInstance,Upload,$timeout,Notify,Request,oss,globalConfig){
+    controllers.controller('editImageUploadCtrl',['$scope','$modalInstance','Upload','$timeout','Notify','Request','oss','globalConfig',function($scope,$modalInstance,Upload,$timeout,Notify,Request,oss,globalConfig){
 
         $scope.isUpload = false;
+
+        $scope.upload_value = 0;
+
+        var file_upload;
 
         var upload = function(file){
 
@@ -47,11 +51,9 @@
 
             oss.token(oss.oss_options(params)).then(function(data){
 
-                /*fields: {policy: policy,signature:signature}*/
+                file_upload = Upload.upload(oss.upload_options({fields:data,file: file}));
 
-                file.upload = Upload.upload(oss.upload_options({fields:data,file: file}));
-
-                file.upload.then(function (response) {
+                file_upload.then(function (response) {
                     $timeout(function () {
                         Notify('上传成功','success');
                         Request.progress();
@@ -61,17 +63,25 @@
                     if(response.data){
                         Notify(response.data.message,'danger');
                     }
+                    $scope.isUpload = false;
                     Request.progress();
                 });
 
-                /*
-                 file.upload.progress(function (evt) {
-                 $scope.isUpload = true;
-                 console.log(Math.min(100, parseInt(100.0 * evt.loaded / evt.total)));
-                 });*/
+                file_upload.progress(function (evt) {
+                    $scope.isUpload = true;
+                    $scope.upload_value = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
 
             });
 
+        };
+
+        $scope.cancel_upload = function(){
+            if(file_upload){
+                file_upload.abort();
+                $scope.isUpload = false;
+                Request.progress();
+            }
         };
 
         $scope.fileSelected = function(files){
