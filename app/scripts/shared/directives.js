@@ -163,94 +163,6 @@
     }]);
 
     /**
-     * image preview
-     */
-    directives.directive('imagePreview', ["Notify",function(Notify){
-        return {
-            restrict: 'A',
-            scope : {
-                options : '=',
-                result:'=',
-                smResult:'=',
-                done:'&'
-            },
-            link: function($scope, element, $attrs) {
-
-                var _fileInput = '<input type="file" name="hidden_input" id="hidden_input_file" style="display: none;">';
-
-                //添加隐藏的file input元素
-                $(element).after(_fileInput);
-
-                $(element).click(function(){
-                   $("#hidden_input_file").click();
-                });
-
-                //生成缩略图
-                var convertImageSize = function(image){
-                    var sm_width = $scope.options.smSize.width;
-                    var sm_height = $scope.options.smSize.height;
-
-                    var canvas = document.createElement("canvas");
-                    canvas.width = sm_width;
-                    canvas.height = sm_height;
-                    canvas.getContext("2d").drawImage(image, 0, 0,sm_width,sm_height);
-                    return canvas.toDataURL("image/jpeg",$scope.options.quantity);
-                };
-
-                var handleFileSelect = function(evt){
-
-                    var file=evt.currentTarget.files[0];
-                    var reader = new FileReader();
-
-                    //开始载入文件
-                    reader.onloadstart = function(){
-                        if(file.size > $scope.options.maxLength * 1024){
-
-                            Notify("文件大小必须小于" + $scope.options.maxLength + "KB",'danger');
-                            reader.abort();
-
-                        }
-                        else if(file.type.indexOf($scope.options.type) == -1){
-
-                            Notify("只能选择"+$scope.options.type+"类型的文件",'danger');
-                            reader.abort();
-
-                        }
-                    };
-
-                    //文件载入完成
-                    reader.onload = function (evt) {
-
-                        var width = $scope.options.size.width;
-                        var height = $scope.options.size.height;
-
-                        var image = new Image();
-                        image.src = evt.target.result;
-
-                        if(image.naturalWidth ==  width && image.naturalHeight == height)
-                        {
-                            $scope.result = evt.target.result;
-                            $scope.smResult = convertImageSize(image);
-                            $scope.$apply();
-                            $scope.done();
-
-                        }else{
-                            Notify("图片宽度必须为" + $scope.options.size.width + ",高度必须为" + $scope.options.size.height,'danger');
-                        }
-
-                    };
-
-                    reader.readAsDataURL(file);
-
-                };
-
-                $('#hidden_input_file').on('change',handleFileSelect);
-
-            }
-        };
-    }]);
-
-    /**
      * redactor
      */
     directives.directive('redactor', [function(){
@@ -258,8 +170,7 @@
             restrict: 'A',
             link: function($scope, element, $attrs) {
                 $(element).redactor({
-                    imageUpload: '/upload.php',
-                    plugins:['table','imagemanager']
+                    plugins:['table']
                 });
             }
         };
