@@ -240,6 +240,7 @@
     services.factory('$wind', [function () {
 
         return {
+            // If the object have empty keys return key's name else return undefined
             hasEmpty:function(obj){
 
                 var error = [];

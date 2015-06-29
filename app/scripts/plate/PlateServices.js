@@ -1,5 +1,5 @@
 /**
- * Created by dell on 2015/6/10.
+ * Created by king on 2015/6/10.
  */
 (function(){
 
