@@ -16,7 +16,8 @@
         'app.plate.controllers',
         'app.plate.services',
         'ui.sortable',
-        'app.article.controllers'
+        'app.article.controllers',
+        'app.article.services'
     ]);
 
     app.config(['$httpProvider', function($httpProvider) {

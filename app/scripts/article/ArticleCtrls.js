@@ -7,7 +7,7 @@
 
     var articleCtrls = angular.module('app.article.controllers',[]);
 
-    articleCtrls.controller('articleCreateCtrls',["$scope","Notify","$modal","plateInfo","$wind","$alert","$redactor",function($scope,Notify,$modal,plateInfo,$wind,$alert,$redactor){
+    articleCtrls.controller('articleCreateCtrls',["$scope","Notify","$modal","plateInfo","$wind","$alert","$redactor","articleManager","$state",function($scope,Notify,$modal,plateInfo,$wind,$alert,$redactor,articleManager,$state){
 
         var article_init = {
             title:"",
@@ -52,12 +52,17 @@
 
             $scope.article.content = $scope.edit.content();
 
-            var keys = $wind.hasEmpty($scope.article);
+            var article = angular.copy($scope.article);
+
+            var keys = $wind.hasEmpty(article);
 
             if(keys){
                 $alert.danger(error[keys]);
             }else{
-
+                articleManager.create(article).then(function(data){
+                    Notify(data.message,'success');
+                    $state.go("article.list");
+                });
             }
 
         };
