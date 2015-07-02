@@ -47,6 +47,7 @@
 
         $scope.action = function(plate){
 
+			var page = angular.copy($scope.pagination.page);
 
             var modalInstance;
             modalInstance = $modalService.modalInstance = $modal.open({
@@ -60,9 +61,12 @@
                 }
             });
 
-            modalInstance.result.then((function() {
+            modalInstance.result.then((function(isUpdate) {
 
-                $scope.select(1);
+				// 如果是更新 重新绑定当前页数据(避免当前为>1的页数 更新后跳回第一页)
+				page = isUpdate ? page : 1;
+			
+                $scope.select(page);
 
             }));
 
@@ -97,7 +101,7 @@
 
                 Notify(data.message,'success');
 
-                $modalInstance.close(true);
+                $modalInstance.close(plate);
 
             },function(){
                 $scope.disabled_submit = false;
