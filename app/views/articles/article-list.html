@@ -1,10 +1,91 @@
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="wrapper wrapper-content animated fadeInRight" id="page-article-list" data-ng-controller="articleListCtrl">
     <div class="row">
         <div class="col-lg-12">
-            <div class="text-center m-t-lg">
-                <h1>
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     文章列表
-                </h1>
+                </div>
+                <div class="panel-body">
+                    <div class="col-sm-12 search-bar">
+                        <form role="form" class="form-inline">
+                            <div class="form-group">
+                                <input placeholder="文章标题"  class="form-control" type="text" ng-model="condition.title">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" name="account" ng-model="condition.isVisible" >
+                                    <option value="">全部</option>
+                                    <option value="1">显示</option>
+                                    <option value="0">隐藏</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control"
+                                        name="account"
+                                        data-ng-model="condition.plate_id"
+                                        data-ng-options="p._id as p.zh_name for p in plates.context">
+                                    <option value="">请选择分类</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-w-m btn-primary" ng-click="reset();">重置条件</button>
+                                <button class="btn btn-success" ng-click="search();"><i class="fa fa-search"></i>&nbsp;搜索</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="table-responsive col-sm-12" style="margin-top: 10px;">
+                        <table class="table table-striped table-middle">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>标题</th>
+                                <th>分类</th>
+                                <th>显示</th>
+                                <th>最后修改时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="article in articles">
+                                <td>{{article._id}}</td>
+                                <td>{{article.title}}</td>
+                                <td>
+                                    <label class="label label-success">
+                                        {{article.plate_id.zh_name}}
+                                    </label>
+                                </td>
+                                <td>
+                                    <a class="btn btn-white btn-bitbucket btn-sm">
+                                        <i class="fa fa-{{article.isVisible ? 'eye-slash':'eye'}}"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <label class="label label-primary">
+                                        <i class="fa fa-clock-o"></i> {{article.update_time | date:"yyyy/MM/dd HH:mm"}}
+                                    </label>
+                                </td>
+                                <td>
+                                    <a class="btn btn-white btn-bitbucket btn-sm">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a class="btn btn-white btn-bitbucket btn-sm">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-12">
+                        <pagination class="pagination-sm"
+                                    ng-change="select(pagination.page);"
+                                    ng-model="pagination.page"
+                                    total-items="pagination.total_items"
+                                    items-per-page="pagination.items_per_page"
+                                    max-size="pagination.max_size"
+                                    data-ng-hide="pagination.total_pages <= 1"></pagination>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

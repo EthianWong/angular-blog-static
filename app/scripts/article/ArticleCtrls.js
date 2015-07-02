@@ -7,6 +7,47 @@
 
     var articleCtrls = angular.module('app.article.controllers',[]);
 
+    articleCtrls.controller('articleListCtrl',["$scope","plateInfo","globalPagination","articleInfo","$filter",function($scope,plateInfo,globalPagination,articleInfo,$filter){
+
+        var condition_init = {
+            title:"",
+            plate_id:"",
+            isVisible:""
+        };
+
+        $scope.articles = [];
+
+        $scope.pagination = globalPagination.create();
+
+        $scope.pagination.resource = articleInfo;
+
+        $scope.plates = plateInfo.query();
+
+        $scope.condition = angular.copy(condition_init);
+
+        $scope.select = function(page){
+
+            var conditions = angular.copy($scope.condition);
+
+            $scope.pagination.select(page,conditions).$promise.then(function(data){
+                $scope.articles = data.context;
+            });
+
+        };
+
+        $scope.search = function(){
+            $scope.select(1);
+        };
+
+        $scope.reset = function(){
+            $scope.condition = angular.copy(condition_init);
+            $scope.select(1);
+        };
+
+        $scope.select(1);
+
+    }]);
+
     articleCtrls.controller('articleCreateCtrls',["$scope","Notify","$modal","plateInfo","$wind","$alert","$redactor","articleManager","$state","$modalService",function($scope,Notify,$modal,plateInfo,$wind,$alert,$redactor,articleManager,$state,$modalService){
 
         var default_cover_url = "images/default_cover.png";
