@@ -240,20 +240,36 @@
     services.factory('$wind', [function () {
 
         return {
-            // If the object have empty keys return key's name else return undefined
-            hasEmpty:function(obj){
+            /**
+             * 验证对象中的属性去除空格后是否为空
+             * @param { Object }  obj 需要验证的对象
+             * @param { Object }  matches 需要匹配的对象 (应对有些属性含有默认值，但提交时不能为默认值)
+             */
+            has_empty:function(obj,matches){
 
                 var error = [];
 
-                var keys = _.keys(obj);
+                $.each(obj,function(key,ele){
 
-
-                for(var i in obj){
-                    var ele = obj[i];
                     if(_.isEmpty($.trim(ele))){
-                        error.push(i);
-                        break;
+                        error.push(key);
+                        return false;
                     }
+
+                });
+
+                if(matches && error.length == 0){
+
+                    $.each(matches,function(key,ele){
+
+                        if(_.has(obj,key)){
+                            if(obj[key] == ele){
+                                error.push(key);
+                                return false;
+                            }
+                        }
+
+                    });
                 }
 
                 return error.length == 0 ? undefined : error;
@@ -322,5 +338,58 @@
         }
 
     }]);
+
+    /**
+     * $modalService
+     * fix modal is always show on view change
+     */
+    services.service('$modalService', [function () {
+
+        this.modalInstance = [];
+
+        this.close = function(){
+            if($("body").hasClass("modal-open"))
+                this.modalInstance.dismiss();
+        }
+
+    }]);
+
+    services.factory('imageInfo', [function () {
+
+        var natural = function(src,callback){
+            var img = new Image();
+            img.src = src;
+            img.onload = function() {
+                callback(img.naturalWidth,img.naturalHeight);
+            };
+        };
+
+        return {
+            get:function(file,callback){
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    var content = event.target.result;
+                    natural(content,function(width,height){
+                        callback(width,height);
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+
+    }]);
+
+    services.filter('fileSize', function() {
+        return function(input) {
+            if(input < 1024){
+                return input + " B";
+            }
+            else if (input > 1024 && input < 1024 * 1024) {
+                return (input / 1024).toFixed(1) + " KB";
+            }else {
+                return (input / 1024 / 1024).toFixed(1) + " MB";
+            }
+        }
+    });
 
 }).call(this);

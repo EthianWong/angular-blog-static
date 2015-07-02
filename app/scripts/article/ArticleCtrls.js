@@ -7,7 +7,9 @@
 
     var articleCtrls = angular.module('app.article.controllers',[]);
 
-    articleCtrls.controller('articleCreateCtrls',["$scope","Notify","$modal","plateInfo","$wind","$alert","$redactor","articleManager","$state",function($scope,Notify,$modal,plateInfo,$wind,$alert,$redactor,articleManager,$state){
+    articleCtrls.controller('articleCreateCtrls',["$scope","Notify","$modal","plateInfo","$wind","$alert","$redactor","articleManager","$state","$modalService",function($scope,Notify,$modal,plateInfo,$wind,$alert,$redactor,articleManager,$state,$modalService){
+
+        var default_cover_url = "images/default_cover.png";
 
         var article_init = {
             title:"",
@@ -24,6 +26,9 @@
 
         // Initialization model
         $scope.article = angular.copy(article_init);
+
+        // Set default cover
+        $scope.article.cover_url = default_cover_url;
 
         // Set default options before load plates
         $scope.plates = [{_id:"",zh_name:"Loading..."}];
@@ -54,7 +59,7 @@
 
             var article = angular.copy($scope.article);
 
-            var keys = $wind.hasEmpty(article);
+            var keys = $wind.has_empty(article,{cover_url:"images/default_cover.png"});
 
             if(keys){
                 $alert.danger(error[keys]);
@@ -69,14 +74,15 @@
 
         var image_upload_options = {
             templateUrl: "/views/common/edit-image-upload.html",
-            controller: "editImageUploadCtrl"
+            controller: "editImageUploadCtrl",
+            windowClass:"modal-upload-image"
         };
 
         $scope.show_image_manager = function(){
 
             var modalInstance;
 
-            modalInstance = $modal.open(image_upload_options);
+            modalInstance = $modalService.modalInstance = $modal.open(image_upload_options);
 
             modalInstance.result.then((function(url) {
                 $scope.edit.insertImage(url);
@@ -87,7 +93,7 @@
 
             var modalInstance;
 
-            modalInstance = $modal.open(image_upload_options);
+            modalInstance = $modalService.modalInstance = $modal.open(image_upload_options);
 
             modalInstance.result.then((function(url) {
 

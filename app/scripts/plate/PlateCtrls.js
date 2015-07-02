@@ -7,7 +7,7 @@
 
     var PlateCtrls =  angular.module('app.plate.controllers',["app.admin.services"]);
 
-    PlateCtrls.controller('plateListCtrl',['$scope','$modal','plateInfo','globalPagination',function($scope,$modal,plateInfo,globalPagination){
+    PlateCtrls.controller('plateListCtrl',['$scope','$modal','plateInfo','globalPagination','$modalService',function($scope,$modal,plateInfo,globalPagination,$modalService){
 
         //初始化条件
         var init_condition = {
@@ -49,7 +49,7 @@
 
 
             var modalInstance;
-            modalInstance = $modal.open({
+            modalInstance = $modalService.modalInstance = $modal.open({
                 templateUrl: "/views/plates/plate-create.html",
                 controller: "plateCreateCtrl",
                 //需要编辑的项已经全部查询出了 所以直接将需要编辑的值传给下个页面 不需要再次查询

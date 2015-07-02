@@ -1,26 +1,66 @@
 <div class="inmodal">
     <div class="modal-header">
-        <h1 class="modal-title">图片上传</h1>
+        <h1 class="modal-title">图片选择</h1>
     </div>
     <div class="modal-body clearfix" style="padding: 15px 0">
-        <div class="col-sm-12" ng-if="isUpload">
-            <progressbar value="upload_value" type="primary" class="progress-striped active">
-                <span>{{upload_value}}%</span>
-            </progressbar>
+        <div class="col-sm-4">
+            <select class="form-control" data-ng-model="image.type" data-ng-change="reset();" data-ng-options="type.key as type.value for type in types" >
+            </select>
         </div>
         <div class="col-sm-8">
-            <button type="button" ngf-select accept="image/*" class="btn btn-block btn-success" ngf-change="fileSelected($files, $event)" data-ng-disabled="isUpload">
-                <span ng-show="isUpload">正在上传</span>
-                <span ng-show="!isUpload"><i class="fa fa-photo"></i>&nbsp;&nbsp;选择图片</span>
+            <!--上传图片-->
+            <button ng-if="image.type == 1"
+                    type="button"
+                    ngf-select
+                    accept="image/*"
+                    class="btn btn-block btn-success"
+                    ngf-change="fileSelected($files, $event)"
+                    data-ng-disabled="status.isUploading">
+                <i class="fa fa-desktop"></i>&nbsp;&nbsp;浏&nbsp;览
             </button>
+
+            <!--输入网址-->
+            <input ng-show="image.type != 1"
+                   placeholder="Url"
+                   class="form-control ng-pristine ng-valid ng-touched"
+                   type="text"
+                   ng-model="image.object"
+                   autofocus="autofocus"
+                   data-ng-change="check_url();">
         </div>
-        <div class="col-sm-4">
-            <button type="button" class="btn btn-block btn-danger" data-ng-disabled="!isUpload" ng-click="cancel_upload();">
-                <i class="fa fa-ban"></i>&nbsp;取消上传
-            </button>
+
+        <!--图片上传预览-->
+        <div class="col-sm-12 upload-image-preview" ng-if="image.object && image.type == 1">
+            <img ngf-src="image.object">
+            <div class="image-info">
+                <span>
+                    Height : {{image.info.height}}
+                    Width : {{image.info.width}}
+                    Size : {{image.info.size | fileSize}}
+                </span>
+            </div>
+            <div class="progressbar" ng-if="status.isUploading">
+                <progressbar value="status.progress" type="primary" class="progress-striped active"></progressbar>
+            </div>
         </div>
     </div>
     <div class="modal-footer">
+
+        <button type="button"
+                class="btn btn-success"
+                data-ng-if="image.type == 2"
+                ng-click="insert_image();"
+                data-ng-disabled="!isUrl">确定</button>
+
+        <button type="button" class="btn btn-success"
+                data-ng-if="status.isReady && image.type == 1"
+                ng-click="start_upload();"
+                data-ng-disabled="status.isUploading">
+            <span ng-if="!status.isUploading">上传</span>
+            <span ng-if="status.isUploading">{{status.progress + " %"}}</span>
+        </button>
+
+        <button type="button" class="btn btn-danger" data-ng-if="status.isUploading" ng-click="cancel_upload();">取消</button>
         <button type="button" class="btn btn-white" ng-click="dismiss();" >关闭</button>
     </div>
 </div>
