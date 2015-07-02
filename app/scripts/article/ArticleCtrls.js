@@ -7,7 +7,7 @@
 
     var articleCtrls = angular.module('app.article.controllers',[]);
 
-    articleCtrls.controller('articleListCtrl',["$scope","plateInfo","globalPagination","articleInfo","$filter",function($scope,plateInfo,globalPagination,articleInfo,$filter){
+    articleCtrls.controller('articleListCtrl',["$scope","plateInfo","globalPagination","articleInfo","$filter","Notify",function($scope,plateInfo,globalPagination,articleInfo,$filter,Notify){
 
         var condition_init = {
             title:"",
@@ -45,6 +45,20 @@
         };
 
         $scope.select(1);
+
+        $scope.update_visible = function(obj){
+
+            var page = angular.copy($scope.pagination.page);
+
+            var params = {
+                _id:obj._id,
+                isVisible:obj.isVisible ? false : true
+            };
+            articleInfo.update(params).$promise.then(function(data){
+                Notify(data.message,'success');
+                $scope.select(page);
+            });
+        };
 
     }]);
 
