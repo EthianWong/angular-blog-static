@@ -25,7 +25,8 @@
             var inner_actions = {
                 'query':  {method:'GET',timeout:canceler.promise},
                 'create':  {method:'POST'},
-                'update' : {method:'PUT'}
+                'update' : {method:'PUT'},
+                'delete' :{method:'DELETE'}
             };
 
             var inner_param_defaults = {};
@@ -391,5 +392,41 @@
             }
         }
     });
+
+    services.factory('windowItems', ["$modal","$modalService",function ($modal,$modalService) {
+
+        return {
+            /**
+             *
+             * @param title
+             * @param message
+             * @param callback  確定事件
+             * @param callback2 取消事件
+             * @param btn_txt 自定義操作按鈕名稱
+             */
+            confirm : function(title, message, callback, callback2, btn_txt) {
+                var $modalInstance;
+                $modalInstance = $modalService.modalInstance = $modal.open({
+                    templateUrl: 'views/common/dialog-confirm.html',
+                    controller: 'windowCtrl',
+                    size:'sm',
+                    windowClass: 'modal-confirm',
+                    resolve: {
+                        data : function(){
+                            return {
+                                'title' : title,
+                                'content': message,
+                                'callback' : callback == undefined || "" ? Function : callback,
+                                'callback2' : callback == undefined || "" ? Function : callback2,
+                                'btn_txt' : btn_txt==undefined || "" ? "確定" : btn_txt
+                            };
+                        }
+                    }
+                });
+                return $modalInstance;
+            }
+        };
+
+    }]);
 
 }).call(this);

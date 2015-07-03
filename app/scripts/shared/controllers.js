@@ -163,4 +163,26 @@
         };
     }]);
 
+    controllers.controller("windowCtrl",["$scope","data","$modalInstance",function($scope,data,$modalInstance){
+
+        $scope.title = data.title;
+
+        $scope.message = data.content;
+
+        $scope.submit = function(){
+            if(data.callback){
+                data.callback();
+            }
+            $modalInstance.close();
+        };
+
+        $scope.cancel = function(){
+            if(data.callback2){
+                data.callback2();
+            }
+            $modalInstance.dismiss();
+        };
+
+    }]);
+
 }).call(this);
