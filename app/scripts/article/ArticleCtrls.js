@@ -7,7 +7,7 @@
 
     var articleCtrls = angular.module('app.article.controllers',[]);
 
-    articleCtrls.controller('articleListCtrl',["$scope","plateInfo","globalPagination","articleInfo","$filter","Notify",function($scope,plateInfo,globalPagination,articleInfo,$filter,Notify){
+    articleCtrls.controller('articleListCtrl',["$scope","plateInfo","globalPagination","articleInfo","$filter","Notify","windowItems",function($scope,plateInfo,globalPagination,articleInfo,$filter,Notify,windowItems){
 
         var condition_init = {
             title:"",
@@ -45,6 +45,15 @@
         };
 
         $scope.select(1);
+
+        $scope.delete = function(_id){
+            windowItems.confirm("提示","是否删除此数据？一经删除不可还原",function(){
+                articleInfo.delete({_id:_id}).$promise.then(function(data){
+                    Notify(data.message,'success');
+                    $scope.select(1);
+                })
+            });
+        };
 
         $scope.update_visible = function(obj){
 
