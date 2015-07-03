@@ -319,24 +319,24 @@
      */
     services.service('$redactor', [function () {
 
-        this.id = "";
+        this.core = "";
 
-        this.dom = "";
+        this.cursor = 0;
 
-        this.init = function(id){
-            this.id = id;
-            this.dom = "#" + id;
+        this.init = function(obj){
+            this.core = obj;
+            // Save editor's cursor index , Because editor will lose cursor when modal open and focus other input
+            this.cursor = obj.caret.getOffset();
             return this;
         };
 
-        this.content = function(){
-            return $(this.dom).redactor('code.get');
+        this.insert = function(url){
+            var _self = this;
+            var image = "<img src='"+url+"'>";
+            // Set editor's cursor index
+            _self.core.caret.setOffset(_self.cursor);
+            _self.core.insert.html(image);
         };
-
-        this.insertImage = function(img_url){
-            var img = '<img src="'+img_url+'">';
-            $(this.dom).redactor('insert.html', img);
-        }
 
     }]);
 

@@ -165,13 +165,44 @@
     /**
      * redactor
      */
-    directives.directive('redactor', [function(){
+    directives.directive('redactor', ["$timeout",function($timeout){
         return {
             restrict: 'A',
-            link: function($scope, element, $attrs) {
-                $(element).redactor({
-                    plugins:['table']
+            require: 'ngModel',
+            scope:{
+                redactor:"="
+            },
+            link: function($scope, element, $attrs,ngModel) {
+
+                $scope.editor = this;
+
+                var editor = $(element).redactor({
+                    plugins:['table'],
+                    focus: true,
+                    initCallback: function()
+                    {
+                        $scope.redactor = this;
+                    },
+                    changeCallback:function(){
+                        $scope.$apply(function() {
+                            ngModel.$setViewValue(element.redactor('code.get'));
+                        });
+                    }
                 });
+
+                ngModel.$render();
+                element.on('remove',function(){
+                    element.off('remove');
+                    element.redactor('core.destroy');
+                });
+
+                ngModel.$render = function() {
+                    if(angular.isDefined(editor)) {
+                        $timeout(function() {
+                            element.redactor('code.set', ngModel.$viewValue || '');
+                        });
+                    }
+                };
             }
         };
     }]);

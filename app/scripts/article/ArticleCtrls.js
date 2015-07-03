@@ -46,7 +46,7 @@
 
         $scope.select(1);
 
-        $scope.delete = function(_id){
+        $scope.remove = function(_id){
             windowItems.confirm("提示","是否删除此数据？一经删除不可还原",function(){
                 articleInfo.delete({_id:_id}).$promise.then(function(data){
                     Notify(data.message,'success');
@@ -105,8 +105,8 @@
             $alert.close(index);
         };
 
-        // Set edit object
-        $scope.edit = $redactor.init("redactor-content");
+        // Set editor object
+        $scope.editor = [];
 
         // Load plates
         plateInfo.query().$promise.then(function(data){
@@ -118,8 +118,6 @@
         });
 
         $scope.submit = function(){
-
-            $scope.article.content = $scope.edit.content();
 
             var article = angular.copy($scope.article);
 
@@ -144,12 +142,14 @@
 
         $scope.show_image_manager = function(){
 
+            $redactor.init($scope.editor);
+
             var modalInstance;
 
             modalInstance = $modalService.modalInstance = $modal.open(image_upload_options);
 
             modalInstance.result.then((function(url) {
-                $scope.edit.insertImage(url);
+                $redactor.insert(url);
             }));
         };
 
