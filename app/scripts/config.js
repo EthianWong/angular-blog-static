@@ -51,6 +51,10 @@
                 url: "/article-create",
                 templateUrl: "views/articles/article-create.html"
             })
+            .state('article.update',{
+                url : '/article-update/:_id',
+                templateUrl: 'views/articles/article-create.html'
+            })
 
 
             .state('plate',{

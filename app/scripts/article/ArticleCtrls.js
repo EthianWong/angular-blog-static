@@ -7,7 +7,7 @@
 
     var articleCtrls = angular.module('app.article.controllers',[]);
 
-    articleCtrls.controller('articleListCtrl',["$scope","plateInfo","globalPagination","articleInfo","$filter","Notify","windowItems",function($scope,plateInfo,globalPagination,articleInfo,$filter,Notify,windowItems){
+    articleCtrls.controller('articleListCtrl',["$scope","plateInfo","globalPagination","articleInfo","$filter","Notify","windowItems","$state",function($scope,plateInfo,globalPagination,articleInfo,$filter,Notify,windowItems,$state){
 
         var condition_init = {
             title:"",
@@ -69,9 +69,15 @@
             });
         };
 
+        $scope.update = function(_id){
+            $state.go("article.update",{_id:_id});
+        };
+
     }]);
 
-    articleCtrls.controller('articleCreateCtrls',["$scope","Notify","$modal","plateInfo","$wind","$alert","$redactor","articleManager","$state","$modalService",function($scope,Notify,$modal,plateInfo,$wind,$alert,$redactor,articleManager,$state,$modalService){
+    articleCtrls.controller('articleCreateCtrls',["$scope","Notify","$modal","plateInfo","$wind","$alert","$redactor","articleManager","$state","$modalService","articleInfo",function($scope,Notify,$modal,plateInfo,$wind,$alert,$redactor,articleManager,$state,$modalService,articleInfo){
+
+        $scope.isUpdate = $state.params._id ? true : false;
 
         var default_cover_url = "images/default_cover.png";
 
@@ -88,11 +94,19 @@
             content:"请填写内容"
         };
 
-        // Initialization model
-        $scope.article = angular.copy(article_init);
+        $scope.article = {};
 
-        // Set default cover
-        $scope.article.cover_url = default_cover_url;
+        $scope.title = $scope.isUpdate ? "更新文章" : "添加文章";
+
+        if($scope.isUpdate){
+            articleInfo.query($state.params).$promise.then(function(data){
+                 $scope.article = data.context;
+                 $scope.article.plate_id =  data.context.plate_id._id;
+            });
+        }else{
+            $scope.article = angular.copy(article_init);
+            $scope.article.cover_url = default_cover_url;
+        }
 
         // Set default options before load plates
         $scope.plates = [{_id:"",zh_name:"Loading..."}];
@@ -114,8 +128,12 @@
             $scope.plates = data.context;
 
             //Choose default plate
-            $scope.article.plate_id = _.findWhere($scope.plates,{isDefault:true})._id;
+            $scope.article.plate_id = $scope.isUpdate ? $scope.article.plate_id :_.findWhere($scope.plates,{isDefault:true})._id;
         });
+
+        $scope.cancel = function(){
+            $state.go("article.list");
+        };
 
         $scope.submit = function(){
 
@@ -126,7 +144,7 @@
             if(keys){
                 $alert.danger(error[keys]);
             }else{
-                articleManager.create(article).then(function(data){
+                articleManager.UpdateOrCreate(article).then(function(data){
                     Notify(data.message,'success');
                     $state.go("article.list");
                 });

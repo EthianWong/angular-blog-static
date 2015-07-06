@@ -15,9 +15,19 @@
 
     plateServices.service('articleManager',['articleInfo','$q',function(articleInfo,$q){
 
-        this.create = function(article_info){
+        this.UpdateOrCreate = function(article_info){
+
+            var method;
+
+            if(article_info._id){
+                method = articleInfo.update(article_info);
+            }else{
+                method = articleInfo.create(article_info);
+            }
+
             var deferred = $q.defer();
-            articleInfo.create(article_info).$promise.then(function(response){
+
+            method.$promise.then(function(response){
                 deferred.resolve(response);
             },function(){
                 deferred.reject();

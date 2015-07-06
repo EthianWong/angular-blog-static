@@ -3,7 +3,7 @@
         <div class="col-lg-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    添加文章
+                    {{title}}
                 </div>
                 <div class="panel-body" style="padding-bottom: 0;">
                     <form class="form-horizontal">
@@ -25,8 +25,12 @@
                                 <a class="btn btn-white btn-bitbucket" ng-click="show_image_manager();">
                                     <i class="fa fa-image"></i> 插入图片
                                 </a>
+                                <button id="btnCancel" type="button" class="btn btn-white" ng-show="isUpdate" ng-click="cancel();">
+                                    取消
+                                </button>
                                 <button id="btnSubmit" type="button" class="btn btn-w-m btn-primary" ng-click="submit();" ng-disabled="alerts.length">
-                                    确认添加
+                                    <span ng-hide="isUpdate">确认添加</span>
+                                    <span ng-show="isUpdate">保存修改</span>
                                 </button>
                             </div>
                         </div>
