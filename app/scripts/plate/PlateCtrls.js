@@ -7,7 +7,7 @@
 
     var PlateCtrls =  angular.module('app.plate.controllers',["app.admin.services"]);
 
-    PlateCtrls.controller('plateListCtrl',['$scope','$modal','plateInfo','globalPagination','$modalService',function($scope,$modal,plateInfo,globalPagination,$modalService){
+    PlateCtrls.controller('plateListCtrl',['$scope','$modal','plateInfo','globalPagination','$modalService','windowItems','Notify',function($scope,$modal,plateInfo,globalPagination,$modalService,windowItems,Notify){
 
         //初始化条件
         var init_condition = {
@@ -70,6 +70,16 @@
 
             }));
 
+        };
+
+
+        $scope.remove = function(_id){
+            windowItems.confirm("提示","删除分类后，该分类内容将归到默认分类下，是否确定删除？",function(){
+                plateInfo.delete({_id:_id}).$promise.then(function(data){
+                    Notify(data.message,'success');
+                    $scope.select(1);
+                })
+            });
         };
 
     }]);
