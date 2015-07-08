@@ -234,4 +234,28 @@
         };
     }]);
 
+    directives.directive('modalScrollbar', ["$timeout",function($timeout){
+        return {
+            restrict: 'EA',
+            link: function(scope, element) {
+
+                var init = function(){
+
+                    var height = $(window).height();
+                    $(element).slimScroll({height: (height * 0.7) + "px"});
+
+                };
+
+                $(window).resize(function() {
+                    $timeout(function(){
+                        $(element).slimScroll({"destroy":true});
+                        init();
+                    });
+                });
+
+                init();
+            }
+        };
+    }]);
+
 }).call(this);
