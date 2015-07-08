@@ -176,7 +176,7 @@
             if(keys){
                 $alert.danger(error[keys]);
             }else{
-                articleManager.UpdateOrCreate(article).then(function(data){
+                articleManager.UpdateOrCreate(article,true).then(function(data){
                     Notify(data.message,'success');
                     $state.go("article.list");
                 });

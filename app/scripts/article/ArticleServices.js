@@ -15,14 +15,17 @@
 
     plateServices.service('articleManager',['articleInfo','$q',function(articleInfo,$q){
 
-        this.UpdateOrCreate = function(article_info){
+        this.UpdateOrCreate = function(article_info,isUpdateContent){
 
             var method;
+
+            isUpdateContent = isUpdateContent ? isUpdateContent : false;
 
             if(article_info._id){
 
                 // Set update time is now
-                article_info.update_time = new Date();
+                if(isUpdateContent)
+                    article_info.update_time = new Date();
                 method = articleInfo.update(article_info);
 
             }else{
