@@ -30,6 +30,7 @@
     "imperavi-redactor-widget": "https://github.com/yiiext/imperavi-redactor-widget.git",
     "ui-sortable": "https://github.com/angular-ui/ui-sortable.git",
     "ng-file-upload": "~5.0.9",
-    "js-base64": "~2.1.8"
+    "js-base64": "~2.1.8",
+    "angular-sanitize": "~1.4.2"
   }
 }

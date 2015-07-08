@@ -7,6 +7,7 @@
     var app = angular.module('changeMgr', [
         'ui.router',
         'ui.bootstrap',
+        'ngSanitize',
         'app.config',
         'app.controllers',
         'app.directives',
