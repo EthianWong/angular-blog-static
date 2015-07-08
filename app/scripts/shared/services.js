@@ -87,15 +87,19 @@
     services.factory('requestInterceptor', ["globalConfig",function (globalConfig) {
         return {
             request: function (config) {
-                if(config.data){
+
+                var delete_empty = function(data){
 
                     //删除value为空的key
-                    _.each(config.data,function(val,name){
+                    _.each(data,function(val,name){
                         if($.trim(val).length == 0){
-                            delete  config.data[name];
+                            delete  data[name];
                         }
                     })
-                }
+                };
+
+                delete_empty(config.method == "GET" ?config.params : config.data);
+
                 // 如果请求地址是api服务器 添加authorization
                 if(config.url.indexOf(globalConfig.apiUrl) != -1){
                     var author = JSON.parse(sessionStorage.getItem('AUTHOR'));
