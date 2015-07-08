@@ -53,7 +53,30 @@ nav h2.logo-text{
 }
 
 
-
+.modal-article-detail{
+  .modal-dialog{
+    overflow: hidden;
+  }
+  @media screen and (min-width: 768px) {
+    .modal-dialog {
+      width: 630px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .modal-dialog {
+      width: auto;
+    }
+  }
+  .modal-dialog .modal-content .inmodal .modal-body{
+    padding: 0;
+    .thumbnail-cover img{
+      width: 100%;
+    }
+    .content{
+      padding: 12px 14px;
+    }
+  }
+}
 
 .modal-upload-image{
   @media screen and (min-width: 768px) {
