@@ -20,9 +20,15 @@
             var method;
 
             if(article_info._id){
+
+                // Set update time is now
+                article_info.update_time = new Date();
                 method = articleInfo.update(article_info);
+
             }else{
+
                 method = articleInfo.create(article_info);
+
             }
 
             var deferred = $q.defer();

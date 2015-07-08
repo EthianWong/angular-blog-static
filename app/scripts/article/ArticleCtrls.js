@@ -7,7 +7,7 @@
 
     var articleCtrls = angular.module('app.article.controllers',[]);
 
-    articleCtrls.controller('articleListCtrl',["$scope","plateInfo","globalPagination","articleInfo","$filter","Notify","windowItems","$state",function($scope,plateInfo,globalPagination,articleInfo,$filter,Notify,windowItems,$state){
+    articleCtrls.controller('articleListCtrl',["$scope","plateInfo","globalPagination","articleInfo","$filter","Notify","windowItems","$state","$modal","$modalService",function($scope,plateInfo,globalPagination,articleInfo,$filter,Notify,windowItems,$state,$modal,$modalService){
 
         var condition_init = {
             title:"",
@@ -71,6 +71,38 @@
 
         $scope.update = function(_id){
             $state.go("article.update",{_id:_id});
+        };
+
+        $scope.show_detail = function(_id){
+            var modalInstance;
+
+            modalInstance = $modalService.modalInstance = $modal.open({
+                templateUrl: "/views/articles/article-detail.html",
+                controller: "articleDetailCtrl",
+                windowClass:"modal-article-detail",
+                animate:"",
+                resolve:{
+                    _id:function(){
+                     return _id;
+                    }
+                }
+            });
+        };
+
+    }]);
+
+    articleCtrls.controller('articleDetailCtrl',["$scope","_id","$modalInstance","articleInfo",function($scope,_id,$modalInstance,articleInfo){
+
+        $scope.article = {};
+
+        if(_id){
+            articleInfo.query({_id:_id}).$promise.then(function(data){
+                $scope.article = data.context;
+            });
+        }
+
+        $scope.close = function(){
+            $modalInstance.dismiss();
         };
 
     }]);

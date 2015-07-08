@@ -1,0 +1,16 @@
+<div class="inmodal">
+    <div class="modal-header">
+        <h4 class="modal-title">{{article.title}}</h4>
+    </div>
+    <div class="modal-body" modal-scrollbar>
+        <div class="thumbnail-cover">
+            <img data-ng-src="{{article.cover_url}}">
+        </div>
+        <div class="content" ng-bind-html="article.content">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" ng-click="close();">关闭</button>
+    </div>
+</div>
+

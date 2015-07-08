@@ -48,7 +48,11 @@
                             <tbody>
                             <tr data-ng-repeat="article in articles">
                                 <td>{{article._id}}</td>
-                                <td>{{article.title}}</td>
+                                <td>
+                                    <a ng-click="show_detail(article._id);" class="text-muted">
+                                        {{article.title}}
+                                    </a>
+                                </td>
                                 <td>
                                     <label class="label label-success">
                                         {{article.plate_id.zh_name}}
