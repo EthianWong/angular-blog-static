@@ -1,10 +1,7 @@
 {
-  "name": "INSPINIA",
-  "version": "2.0",
-  "authors": [
-    "Damian Dudziak - WebAppLayers"
-  ],
-  "description": "INSPINIA - Responsive Admin Theme",
+  "name": "site-manager",
+  "version": "0.0.1",
+  "description": "this is a management for the personal website, use AngularJS.",
   "main": "app/index.html",
   "private": true,
   "ignore": [

@@ -111,7 +111,7 @@
 
         $scope.isUpdate = $state.params._id ? true : false;
 
-        var default_cover_url = "images/default_cover.png";
+        var default_cover_url = "css/patterns/default_cover.png";
 
         var article_init = {
             title:"",

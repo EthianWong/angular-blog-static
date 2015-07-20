@@ -70,18 +70,6 @@
                 url: "/plate-order",
                 templateUrl: "views/plates/plate-order.html"
             })
-
-
-            .state('index.main', {
-                url: "/main",
-                templateUrl: "views/main.html",
-                data: { pageTitle: 'Example view' }
-            })
-            .state('index.minor', {
-                url: "/minor",
-                templateUrl: "views/minor.html",
-                data: { pageTitle: 'Example view' }
-            });
     }]);
 
     config.run(["$rootScope","$state",function($rootScope, $state){

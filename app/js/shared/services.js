@@ -62,7 +62,20 @@
         return {
             'responseError': function(response) {
 
-                if( response.status == 422  || response.status == 404 || response.status == 400){
+                var status = response.status;
+
+                if(_.indexOf([422,404,400,500,405], status) != -1 ){
+
+                    Notify(response.data.message,'danger');
+
+                    if(status == 405){
+                        $injector.get("$state").go('login');
+                    }
+                }
+
+                return $q.reject(response);
+
+                /*if( response.status == 422  || response.status == 404 || response.status == 400){
 
                     Notify(response.data.message,'danger');
 
@@ -75,8 +88,7 @@
                     Notify(response.data.message,'danger');
                     $injector.get("$state").go('login');
 
-                }
-                return $q.reject(response);
+                }*/
             }
         }
     }]);
