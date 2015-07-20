@@ -26,7 +26,7 @@
 
         Browsersync.init({
             server: {
-                baseDir: paths.src
+                baseDir: "./" +paths.src
             }
         });
 

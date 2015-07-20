@@ -13,7 +13,7 @@
      * Server's location
      */
     config.constant("globalConfig",{
-        apiUrl: 'http://localhost:3000/',
+        apiUrl: 'http://localhost:3003/',
         ossPreviewUrl:"http://change.b0.upaiyun.com/",
         ossUploadUrl:"http://v0.api.upyun.com/change"
     });
