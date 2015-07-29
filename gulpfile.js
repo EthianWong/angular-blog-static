@@ -25,6 +25,10 @@
     gulp.task('server', function() {
 
         Browsersync.init({
+            port: 3005,
+            ui: {
+                port: 3006
+            },
             server: {
                 baseDir: "./" +paths.src
             }
