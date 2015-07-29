@@ -185,4 +185,33 @@
 
     }]);
 
+    controllers.controller("authorizationCtrl",["$scope","$modalInstance","admin","adminManager",function($scope,$modalInstance,admin,adminManager){
+
+        var init_user = {
+            name:"",
+            password:""
+        };
+
+        $scope.admin = angular.copy(init_user);
+
+        $scope.submit = function(){
+
+            var password = angular.copy($scope.admin.password);
+            var user = angular.copy(init_user);
+
+            var admin = JSON.parse(sessionStorage.getItem('AUTHOR'));
+
+            user.password = password;
+            user.name = admin.name ? admin.name:"";
+
+            adminManager.login(user).then(function(){
+
+                $modalInstance.dismiss();
+
+            });
+
+        };
+
+    }]);
+
 }).call(this);

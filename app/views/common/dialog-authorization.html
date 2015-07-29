@@ -1,0 +1,15 @@
+<div class="inmodal">
+    <h2>授权过期，请重新输入密码</h2>
+    <form name="authorization_form" novalidate>
+        <div class="form-group">
+            <input placeholder="密码" class="form-control" type="password" ng-model="admin.password" required>
+        </div>
+        <input type="submit"
+               class="btn btn-block btn-success"
+               style="margin-bottom: 15px;"
+               ng-click="submit();"
+               value="提交"
+               data-ng-disabled="authorization_form.$invalid">
+    </form>
+</div>
+

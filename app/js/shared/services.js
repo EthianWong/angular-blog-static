@@ -71,6 +71,11 @@
                     if(status == 405){
                         $injector.get("$state").go('login');
                     }
+
+                }else if (status == 406){
+
+                    $injector.get("$authorization").extend();
+
                 }
 
                 return $q.reject(response);
@@ -451,5 +456,26 @@
         };
 
     }]);
+
+
+    services.factory('$authorization', ["$modal","$modalService",function ($modal,$modalService) {
+
+        return {
+            extend:function(){
+
+                var modalInstance;
+
+                modalInstance = $modalService.modalInstance = $modal.open({
+                    templateUrl: "/views/common/dialog-authorization.html",
+                    size:'sm',
+                    windowClass: 'modal-confirm',
+                    controller: "authorizationCtrl"
+                });
+
+            }
+        };
+
+    }]);
+
 
 }).call(this);
