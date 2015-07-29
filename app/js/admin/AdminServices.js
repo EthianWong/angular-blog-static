@@ -36,7 +36,10 @@
             adminInfo.login(user_info).$promise.then(function(response){
 
                 admin.set(response.context);
+
                 sessionStorage.setItem("AUTHOR",JSON.stringify(response.context));
+                sessionStorage.setItem("TOKEN",response.context.token);
+
                 deferred.resolve(response);
 
             },function(){
