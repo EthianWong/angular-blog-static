@@ -74,21 +74,6 @@
                 }
 
                 return $q.reject(response);
-
-                /*if( response.status == 422  || response.status == 404 || response.status == 400){
-
-                    Notify(response.data.message,'danger');
-
-                }else if(response.status == 500){
-
-                    Notify(response.data.message,'danger');
-
-                }else if(response.status == 405){
-
-                    Notify(response.data.message,'danger');
-                    $injector.get("$state").go('login');
-
-                }*/
             }
         }
     }]);
@@ -114,13 +99,35 @@
 
                 // 如果请求地址是api服务器 添加authorization
                 if(config.url.indexOf(globalConfig.apiUrl) != -1){
-                    var author = JSON.parse(sessionStorage.getItem('AUTHOR'));
-                    config.headers.authorization = author ? author.token : "";
+                    var token = sessionStorage.getItem('TOKEN');
+                    config.headers.authorization = token ? token : "";
                 }
                 return config;
             }
         }
     }]);
+
+    /**
+     * response interceptor
+     * extend expires times
+     */
+    services.factory('responseInterceptor', ["globalConfig",function (globalConfig) {
+        return {
+            "response": function (response) {
+
+                if(response.config.url.indexOf(globalConfig.apiUrl) != -1){
+
+                    var token = response.headers("X-Authorization");
+
+                    if(token){
+                        sessionStorage.setItem("TOKEN",token);
+                    }
+                }
+                return response;
+            }
+        }
+    }]);
+
 
     /**
      * 公用分页

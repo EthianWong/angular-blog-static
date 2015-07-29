@@ -24,6 +24,7 @@
     app.config(['$httpProvider', function($httpProvider) {
         $httpProvider.interceptors.push('errorInterceptor');
         $httpProvider.interceptors.push('requestInterceptor');
+        $httpProvider.interceptors.push('responseInterceptor');
     }]);
 
 })();
