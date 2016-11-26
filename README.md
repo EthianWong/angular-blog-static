@@ -11,4 +11,5 @@ grunt live
 ```
 
 ### description
-If you want to run this project must have https://github.com/WindWen/blog-api 
+如果你想完整的运行这个项目 还需要以下的项目来提供API交互与数据  
+https://github.com/WindWen/blog-api 
