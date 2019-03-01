@@ -1,5 +1,5 @@
 # angular-blog-static
-这是一个简单的cms系统，使用了angularjs 1.x 进行构建，我通过这个项目开始学习angularjs 和去理解如何从DOM操作转变为数据驱动UI，当中还包含了ui-router/ng-bootstrap/ng-resource 等常用组件的协同工作，基本包含了所有的表单操作与图片上传.希望这个项目也能帮助其他的新人
+This is a simple cms system, built using angularjs 1.x, I started learning angularjs and understanding how to change from DOM operations to data-driven UI, including ui-router/ng-bootstrap/ng The collaborative work of common components such as -resource basically includes all the form operations and image uploads. I hope this project can also help other newcomers.
 
 ### setup
 ```shell
@@ -11,5 +11,5 @@ grunt live
 ```
 
 ### description
-如果你想完整的运行这个项目 还需要以下的项目来提供API交互与数据  
-https://github.com/WindWen/blog-api 
+If you want to run this project in its entirety, you need the following projects to provide API interaction and data.
+https://github.com/EthianWong/cms-api
